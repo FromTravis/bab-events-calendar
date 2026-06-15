@@ -275,7 +275,9 @@ def main():
     print(f"Total compiled unique events scraped: {len(unique_events)}")
     
     # Export to JSON
-    output_path = "scraped_events.json"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    parent_dir = os.path.dirname(script_dir)
+    output_path = os.path.join(parent_dir, "scraped_events.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(unique_events, f, ensure_ascii=False, indent=2)
         
