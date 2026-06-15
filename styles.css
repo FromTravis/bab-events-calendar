@@ -1,0 +1,1182 @@
+/* ==========================================================================
+   Basque Agenda - Premium Design System (Vanilla CSS)
+   ========================================================================== */
+
+/* Typography & Core Defaults */
+:root {
+  /* Color Tokens - Default Dark Mode */
+  --bg-color-main: #0a0e17;
+  --bg-color-card: rgba(18, 26, 44, 0.6);
+  --bg-color-panel: rgba(13, 19, 33, 0.85);
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-color-hover: rgba(255, 255, 255, 0.15);
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-inverse: #0f172a;
+  
+  /* Vibrant Basque-Ocean Palette */
+  --color-primary: #e63946;    /* Basque Red */
+  --color-secondary: #0077b6;  /* Deep Ocean Blue */
+  --color-accent: #f77f00;     /* Sunset Orange */
+  
+  /* Category Colors */
+  --color-cat-music: #8a5cf6;       /* Indigo */
+  --color-cat-sports: #0ea5e9;      /* Blue */
+  --color-cat-gastronomy: #f59e0b;  /* Amber */
+  --color-cat-culture: #ec4899;     /* Pink */
+  --color-cat-family: #10b981;      /* Emerald */
+  
+  /* Effects */
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --border-radius-lg: 16px;
+  --border-radius-md: 10px;
+  --border-radius-sm: 6px;
+}
+
+/* Light Mode Variables Override */
+.light-theme {
+  --bg-color-main: #f1f5f9;
+  --bg-color-card: rgba(255, 255, 255, 0.85);
+  --bg-color-panel: rgba(248, 250, 252, 0.95);
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-color-hover: rgba(15, 23, 42, 0.15);
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-inverse: #f8fafc;
+  
+  --glass-shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.15);
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color-main);
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color-hover);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-secondary);
+}
+
+/* ==========================================================================
+   Components & Layouts
+   ========================================================================== */
+
+/* Main Header */
+.main-header {
+  background: var(--bg-color-panel);
+  border-bottom: 1px solid var(--border-color);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 0;
+}
+
+.header-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-symbol {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+  animation: float 3s ease-in-out infinite;
+}
+
+.brand-text h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(90deg, var(--text-main), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-text span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.header-widgets {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.weather-widget {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-md);
+  background: var(--bg-color-card);
+  border: 1px solid var(--border-color);
+  font-size: 0.85rem;
+}
+
+.weather-icon {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+}
+
+.weather-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-info .temp {
+  font-weight: 700;
+}
+
+.weather-info .water {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.theme-toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-color-card);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  transition: var(--transition-smooth);
+}
+
+.theme-toggle-btn:hover {
+  transform: rotate(30deg) scale(1.1);
+  border-color: var(--color-accent);
+}
+
+
+/* Top Banner */
+.top-banner-container {
+  max-width: 1400px;
+  margin: 1.5rem auto 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.top-banner-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--glass-shadow);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-smooth);
+}
+
+.top-banner-img:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-accent);
+}
+
+/* Main Container Grid */
+.main-container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  flex-grow: 1;
+}
+
+/* Sidebar Controls */
+.sidebar-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.control-panel {
+  background: var(--bg-color-panel);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(8px);
+}
+
+.control-panel h3 {
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+/* Search Box */
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bg-color-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 0.75rem 1rem;
+  transition: var(--transition-smooth);
+}
+
+.search-box:focus-within {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.25);
+}
+
+.search-icon {
+  color: var(--text-muted);
+}
+
+.search-box input {
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.search-box input::placeholder {
+  color: var(--text-muted);
+}
+
+/* City Pill Selectors */
+.city-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.city-pill {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-radius: var(--border-radius-md);
+  background: var(--bg-color-main);
+  border: 1px solid var(--border-color);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.city-pill::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: var(--color-primary);
+  transform: scaleY(0);
+  transition: var(--transition-smooth);
+}
+
+.city-pill:hover {
+  border-color: var(--border-color-hover);
+  background: var(--bg-color-card);
+}
+
+.city-pill.active {
+  border-color: var(--color-primary);
+  background: rgba(230, 57, 70, 0.08);
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.city-pill.active::before {
+  transform: scaleY(1);
+}
+
+/* Category Filter Buttons */
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: left;
+  transition: var(--transition-smooth);
+}
+
+.category-btn i {
+  width: 20px;
+  text-align: center;
+}
+
+.category-btn:hover {
+  background: var(--bg-color-card);
+}
+
+.category-btn.active {
+  font-weight: 700;
+}
+
+/* Inject category specific colors when active */
+.category-btn.active[data-category="all"] { background: var(--bg-color-card); border-left: 3px solid var(--text-main); }
+.category-btn.active[data-category="Concerts & Music"] { background: rgba(138, 92, 246, 0.12); color: var(--color-cat-music); }
+.category-btn.active[data-category="Sports & Surf"] { background: rgba(14, 165, 233, 0.12); color: var(--color-cat-sports); }
+.category-btn.active[data-category="Gastronomy & Markets"] { background: rgba(245, 158, 11, 0.12); color: var(--color-cat-gastronomy); }
+.category-btn.active[data-category="Culture & Heritage"] { background: rgba(236, 72, 153, 0.12); color: var(--color-cat-culture); }
+.category-btn.active[data-category="Community & Family"] { background: rgba(16, 185, 129, 0.12); color: var(--color-cat-family); }
+
+/* Add Event Button Panel */
+.action-panel {
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.add-event-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: white;
+  padding: 1rem;
+  border-radius: var(--border-radius-lg);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.add-event-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.45);
+}
+
+/* Content Area Layout */
+.content-area {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Calendar Card */
+.calendar-card {
+  background: var(--bg-color-panel);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(8px);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.calendar-header h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, var(--text-main), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cal-nav-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-color-card);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.cal-nav-btn:hover {
+  background: var(--border-color-hover);
+  border-color: var(--color-secondary);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.day-name {
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  padding-bottom: 0.5rem;
+}
+
+.days-container {
+  display: contents; /* Allows children to participate directly in the calendar-grid */
+}
+
+/* Calendar Day Cell */
+.calendar-day {
+  aspect-ratio: 1.1;
+  background: var(--bg-color-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+  font-weight: 500;
+}
+
+.calendar-day:hover {
+  transform: scale(1.05);
+  border-color: var(--color-secondary);
+  z-index: 5;
+}
+
+.calendar-day.empty {
+  background: transparent;
+  border-color: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+
+.calendar-day.today {
+  border: 2px solid var(--color-accent);
+  background: rgba(247, 127, 0, 0.05);
+}
+
+.calendar-day.active-day {
+  background: linear-gradient(135deg, var(--color-secondary), rgba(0, 119, 182, 0.4));
+  color: white;
+  border-color: var(--color-secondary);
+}
+
+.calendar-day.active-day .day-events-dots .dot {
+  background-color: white !important; /* Standout dots on selected day */
+}
+
+.calendar-day .day-num {
+  font-size: 0.95rem;
+}
+
+/* Mini dots indicating categories on a day */
+.day-events-dots {
+  display: flex;
+  gap: 3px;
+  justify-content: flex-start;
+  width: 100%;
+  flex-wrap: wrap;
+  padding-top: 4px;
+}
+
+.day-events-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+/* Colors for Dots matching categories */
+.dot.music { background-color: var(--color-cat-music); }
+.dot.sports { background-color: var(--color-cat-sports); }
+.dot.gastronomy { background-color: var(--color-cat-gastronomy); }
+.dot.culture { background-color: var(--color-cat-culture); }
+.dot.family { background-color: var(--color-cat-family); }
+
+/* Events list header */
+.events-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.events-list-header h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.reset-date-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius-sm);
+  background: rgba(230, 57, 70, 0.08);
+  border: 1px solid rgba(230, 57, 70, 0.2);
+  transition: var(--transition-smooth);
+}
+
+.reset-date-btn:hover {
+  background: rgba(230, 57, 70, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Event Cards Grid */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Premium Event Card */
+.event-card {
+  background: var(--bg-color-panel);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-smooth);
+  backdrop-filter: blur(8px);
+}
+
+.event-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--border-color-hover);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.event-card-img {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.event-card-img::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 40%, rgba(10, 14, 23, 0.8));
+}
+
+.event-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: white;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+/* Card badges by category */
+.event-badge[data-category="Concerts & Music"] { background-color: var(--color-cat-music); }
+.event-badge[data-category="Sports & Surf"] { background-color: var(--color-cat-sports); }
+.event-badge[data-category="Gastronomy & Markets"] { background-color: var(--color-cat-gastronomy); }
+.event-badge[data-category="Culture & Heritage"] { background-color: var(--color-cat-culture); }
+.event-badge[data-category="Community & Family"] { background-color: var(--color-cat-family); }
+
+.event-card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex-grow: 1;
+}
+
+.event-card-city {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Localized labels styling */
+.event-card-city.biarritz { background-color: rgba(0, 119, 182, 0.15); color: var(--color-cat-sports); }
+.event-card-city.anglet { background-color: rgba(247, 127, 0, 0.15); color: var(--color-accent); }
+.event-card-city.bayonne { background-color: rgba(230, 57, 70, 0.15); color: var(--color-primary); }
+
+.event-card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text-main);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.88rem; /* Heights safety fallback for two lines */
+}
+
+.event-card-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.event-card-meta div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.event-card-meta i {
+  width: 14px;
+  color: var(--color-accent);
+}
+
+.event-card-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+.event-card-footer {
+  padding-top: 1rem;
+  margin-top: auto;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-card-venue {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.event-card-btn {
+  background: var(--bg-color-main);
+  border: 1px solid var(--border-color-hover);
+  padding: 0.4rem 1rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.event-card-btn:hover {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  color: white;
+}
+
+/* Empty State */
+.no-events-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--bg-color-panel);
+  border-radius: var(--border-radius-lg);
+  border: 1px dashed var(--border-color-hover);
+  color: var(--text-muted);
+}
+
+.no-events-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--color-accent);
+  opacity: 0.7;
+}
+
+.no-events-state h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+/* ==========================================================================
+   Modals & Popups
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(4, 6, 11, 0.8);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1.5rem;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.modal-card {
+  background: var(--bg-color-panel);
+  border: 1px solid var(--border-color-hover);
+  border-radius: var(--border-radius-lg);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transform: scale(1);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-overlay.hide .modal-card {
+  transform: scale(0.9);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+  z-index: 10;
+  transition: var(--transition-smooth);
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.1);
+}
+
+/* Event Details Modal Hero */
+.modal-hero {
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.modal-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, transparent 40%, var(--bg-color-panel));
+}
+
+.modal-category-badge {
+  position: absolute;
+  bottom: 1rem;
+  left: 2rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: white;
+  z-index: 2;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.modal-category-badge[data-category="Concerts & Music"] { background-color: var(--color-cat-music); }
+.modal-category-badge[data-category="Sports & Surf"] { background-color: var(--color-cat-sports); }
+.modal-category-badge[data-category="Gastronomy & Markets"] { background-color: var(--color-cat-gastronomy); }
+.modal-category-badge[data-category="Culture & Heritage"] { background-color: var(--color-cat-culture); }
+.modal-category-badge[data-category="Community & Family"] { background-color: var(--color-cat-family); }
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+/* Details Meta Grid */
+.modal-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  background: var(--bg-color-main);
+  padding: 1rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.meta-item i {
+  font-size: 1.2rem;
+  color: var(--color-accent);
+  width: 24px;
+}
+
+.meta-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.meta-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.modal-description {
+  margin-bottom: 2rem;
+}
+
+.modal-description h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.25rem;
+}
+
+.modal-description p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-action-btn {
+  background: linear-gradient(135deg, var(--color-secondary), #00b4d8);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 15px rgba(0, 119, 182, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.modal-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 119, 182, 0.45);
+}
+
+/* Event Submission Form */
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.add-event-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-row {
+  display: flex;
+  width: 100%;
+}
+
+.form-row.split {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+  background: var(--bg-color-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  width: 100%;
+  transition: var(--transition-smooth);
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(230, 57, 70, 0.25);
+}
+
+.form-group select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
+  padding-right: 2.5rem;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.submit-form-btn {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  color: white;
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+  transition: var(--transition-smooth);
+}
+
+.submit-form-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.45);
+}
+
+/* Footer styling */
+.main-footer {
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-color-panel);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   Animations & Transitions
+   ========================================================================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .main-container {
+    grid-template-columns: 1fr; /* Stack sidebar on top for tablets */
+  }
+  
+  .sidebar-controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .control-panel.action-panel {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+  
+  .weather-widget {
+    display: none; /* Hide weather on mobile for space */
+  }
+  
+  .main-container {
+    padding: 0 1rem;
+    margin: 1rem auto;
+  }
+  
+  .sidebar-controls {
+    grid-template-columns: 1fr; /* Stack controls on mobile */
+  }
+  
+  .control-panel.action-panel {
+    grid-column: span 1;
+  }
+  
+  .calendar-day {
+    padding: 2px;
+  }
+  
+  .calendar-day .day-num {
+    font-size: 0.8rem;
+  }
+  
+  .day-events-dots .dot {
+    width: 4px;
+    height: 4px;
+  }
+  
+  .modal-meta-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modal-card {
+    max-height: 95vh;
+  }
+  
+  .modal-hero {
+    height: 180px;
+  }
+  
+  .modal-body {
+    padding: 1.25rem;
+  }
+}

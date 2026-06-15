@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basque Agenda - Événements Biarritz, Anglet, Bayonne</title>
+  <meta name="description" content="Découvrez tous les événements, concerts, sports, marchés et sorties culturelles dans la région de Biarritz, Anglet et Bayonne (BAB).">
+  <!-- Google Fonts: Outfit (modern headers) & Inter (highly readable body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <!-- FontAwesome for premium icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-theme"> <!-- Defaults to dark theme for gorgeous aesthetics -->
+
+  <!-- Top Header bar -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-symbol">
+          <i class="fa-solid fa-water"></i>
+        </div>
+        <div class="brand-text">
+          <h1>Basque Agenda</h1>
+          <span>Biarritz · Anglet · Bayonne</span>
+        </div>
+      </div>
+      
+      <!-- Weather widget + Theme toggler -->
+      <div class="header-widgets">
+        <div class="weather-widget" id="weatherWidget">
+          <i class="fa-solid fa-sun-cloud weather-icon"></i>
+          <div class="weather-info">
+            <span class="temp">22°C</span>
+            <span class="water">Ocean: 19°C <i class="fa-solid fa-water"></i></span>
+          </div>
+        </div>
+        
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Changer de thème">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Top Banner Image -->
+  <div class="top-banner-container">
+    <img src="banner.png" alt="Agenda BAB - Bayonne, Anglet, Biarritz, Pays Basque" class="top-banner-img">
+  </div>
+
+  <!-- Main Grid Layout -->
+  <main class="main-container">
+    
+    <!-- Sidebar Controls -->
+    <aside class="sidebar-controls">
+      
+      <!-- Search Panel -->
+      <div class="control-panel search-panel">
+        <h3>Recherche</h3>
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Rechercher un artiste, lieu, mot-clé...">
+        </div>
+      </div>
+      
+      <!-- City Filtering -->
+      <div class="control-panel filter-panel">
+        <h3>Villes</h3>
+        <div class="city-selector">
+          <button class="city-pill active" data-city="all" id="city-all">Toutes</button>
+          <button class="city-pill" data-city="Biarritz" id="city-biarritz">Biarritz</button>
+          <button class="city-pill" data-city="Anglet" id="city-anglet">Anglet</button>
+          <button class="city-pill" data-city="Bayonne" id="city-bayonne">Bayonne</button>
+        </div>
+      </div>
+      
+      <!-- Category Filtering -->
+      <div class="control-panel filter-panel">
+        <h3>Catégories</h3>
+        <div class="category-list">
+          <button class="category-btn active" data-category="all" id="cat-all">
+            <i class="fa-solid fa-grid-2"></i> Toutes les catégories
+          </button>
+          <button class="category-btn" data-category="Concerts & Music" id="cat-music">
+            <i class="fa-solid fa-music"></i> Concerts & Musique
+          </button>
+          <button class="category-btn" data-category="Sports & Surf" id="cat-sports">
+            <i class="fa-solid fa-person-surfing"></i> Sports & Surf
+          </button>
+          <button class="category-btn" data-category="Gastronomy & Markets" id="cat-gastronomy">
+            <i class="fa-solid fa-utensils"></i> Gastronomie & Marchés
+          </button>
+          <button class="category-btn" data-category="Culture & Heritage" id="cat-culture">
+            <i class="fa-solid fa-landmark"></i> Culture & Patrimoine
+          </button>
+          <button class="category-btn" data-category="Community & Family" id="cat-family">
+            <i class="fa-solid fa-people-group"></i> Famille & Communauté
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Panel -->
+      <div class="control-panel action-panel">
+        <button class="add-event-btn" id="openAddEventModalBtn">
+          <i class="fa-solid fa-plus-circle"></i> Proposer un événement
+        </button>
+      </div>
+      
+    </aside>
+
+    <!-- Main Content Area -->
+    <section class="content-area">
+      
+      <!-- Interactive Calendar Card -->
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <button class="cal-nav-btn" id="prevMonthBtn" aria-label="Mois précédent">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <h2 id="currentMonthYear">Juin 2026</h2>
+          <button class="cal-nav-btn" id="nextMonthBtn" aria-label="Mois suivant">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+        
+        <div class="calendar-grid">
+          <div class="day-name">Lun</div>
+          <div class="day-name">Mar</div>
+          <div class="day-name">Mer</div>
+          <div class="day-name">Jeu</div>
+          <div class="day-name">Ven</div>
+          <div class="day-name">Sam</div>
+          <div class="day-name">Dim</div>
+          <div class="days-container" id="daysContainer"></div>
+        </div>
+      </div>
+
+      <!-- List View Header -->
+      <div class="events-list-header">
+        <h2 id="listTitle">Prochains événements</h2>
+        <button class="reset-date-btn hide" id="resetDateFilterBtn">
+          <i class="fa-solid fa-calendar-xmark"></i> Tous les jours
+        </button>
+      </div>
+
+      <!-- Events Grid/List -->
+      <div class="events-grid" id="eventsGrid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+      
+    </section>
+    
+  </main>
+
+  <!-- Modal: Event Details -->
+  <div class="modal-overlay hide" id="detailsModal" role="dialog" aria-modal="true">
+    <div class="modal-card details-card">
+      <button class="modal-close-btn" id="closeDetailsModalBtn" aria-label="Fermer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <div class="modal-hero" id="modalHeroImage" style="background-image: url('')">
+        <div class="modal-category-badge" id="modalCategoryBadge">Sports & Surf</div>
+      </div>
+      
+      <div class="modal-body">
+        <h2 class="modal-title" id="modalTitle">Biarritz Surf Festival</h2>
+        
+        <div class="modal-meta-grid">
+          <div class="meta-item">
+            <i class="fa-solid fa-calendar-day"></i>
+            <div>
+              <span class="meta-label">Date</span>
+              <span class="meta-value" id="modalDate">Vendredi 10 Juillet 2026</span>
+            </div>
+          </div>
+          <div class="meta-item">
+            <i class="fa-solid fa-clock"></i>
+            <div>
+              <span class="meta-label">Heure</span>
+              <span class="meta-value" id="modalTime">09:00</span>
+            </div>
+          </div>
+          <div class="meta-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <div>
+              <span class="meta-label">Lieu</span>
+              <span class="meta-value" id="modalLocation">Biarritz (Grande Plage)</span>
+            </div>
+          </div>
+          <div class="meta-item">
+            <i class="fa-solid fa-building"></i>
+            <div>
+              <span class="meta-label">Organisateur</span>
+              <span class="meta-value" id="modalVenue">Côte des Basques</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-description">
+          <h3>Description</h3>
+          <p id="modalDescription">Détails de l'événement...</p>
+        </div>
+        
+        <div class="modal-footer">
+          <a href="#" target="_blank" class="modal-action-btn" id="modalLinkBtn">
+            Voir le site officiel <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Custom Event -->
+  <div class="modal-overlay hide" id="addEventModal" role="dialog" aria-modal="true">
+    <div class="modal-card add-event-card">
+      <button class="modal-close-btn" id="closeAddEventModalBtn" aria-label="Fermer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      
+      <div class="modal-body">
+        <h2>Proposer un événement</h2>
+        <p class="subtitle">Partagez une activité locale à Biarritz, Anglet ou Bayonne.</p>
+        
+        <form id="addEventForm" class="add-event-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formTitle">Titre de l'événement *</label>
+              <input type="text" id="formTitle" required placeholder="Ex: Concert de Surf Rock">
+            </div>
+          </div>
+          
+          <div class="form-row split">
+            <div class="form-group">
+              <label for="formDate">Date *</label>
+              <input type="date" id="formDate" required min="2026-01-01">
+            </div>
+            <div class="form-group">
+              <label for="formTime">Heure</label>
+              <input type="time" id="formTime" value="20:00">
+            </div>
+          </div>
+          
+          <div class="form-row split">
+            <div class="form-group">
+              <label for="formLocation">Ville *</label>
+              <select id="formLocation" required>
+                <option value="Biarritz">Biarritz</option>
+                <option value="Anglet">Anglet</option>
+                <option value="Bayonne">Bayonne</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="formCategory">Catégorie *</label>
+              <select id="formCategory" required>
+                <option value="Concerts & Music">Concerts & Musique</option>
+                <option value="Sports & Surf">Sports & Surf</option>
+                <option value="Gastronomy & Markets">Gastronomie & Marchés</option>
+                <option value="Culture & Heritage">Culture & Patrimoine</option>
+                <option value="Community & Family">Famille & Communauté</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formVenue">Lieu précis *</label>
+              <input type="text" id="formVenue" required placeholder="Ex: Plage des Cavaliers, Atabal, etc.">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formImage">Lien de l'image (URL)</label>
+              <input type="url" id="formImage" placeholder="Ex: https://images.unsplash.com/...">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="formDescription">Description *</label>
+              <textarea id="formDescription" required rows="4" placeholder="Décrivez l'événement, tarifs, accès..."></textarea>
+            </div>
+          </div>
+          
+          <div class="form-footer">
+            <button type="submit" class="submit-form-btn">Créer l'événement</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="main-footer">
+    <p>&copy; 2026 Basque Agenda. Calendrier culturel et sportif Biarritz, Anglet, Bayonne.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="events.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
